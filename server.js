@@ -8,8 +8,9 @@ var data = require('./public/js/quizData.js');
 app.use(express.static(__dirname + '/public'));
 
 io.on('connection', function(socket){
-    socket.emit('generateID', {
-        userID: data.getID()
+    socket.emit('join-game', {
+        user: data.createUser(),
+        onlineCount: data.getOnlineCount()
     });
 });
 
