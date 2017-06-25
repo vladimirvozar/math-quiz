@@ -3,11 +3,14 @@ var express = require('express');
 var app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
+var data = require('./public/js/quizData.js');
 
 app.use(express.static(__dirname + '/public'));
 
-io.on('connection', function(){
-    console.log('User connected via socket.io <- (generate new id for new user)');
+io.on('connection', function(socket){
+    socket.emit('generateID', {
+        userID: data.getID()
+    });
 });
 
 http.listen(PORT, function(){
