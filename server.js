@@ -10,7 +10,8 @@ app.use(express.static(__dirname + '/public'));
 io.on('connection', function(socket){
     socket.emit('join-game', {
         user: data.createUser(),
-        onlineCount: data.getOnlineCount()
+        onlineCount: data.getOnlineCount(),
+        round: data.getRound()
     });
 });
 
