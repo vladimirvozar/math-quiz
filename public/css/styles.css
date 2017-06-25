@@ -1,0 +1,25 @@
+#table {
+    font-family : aral, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+}
+
+#table td, #table th {
+    border: 1px solid black;
+    text-align: center;
+    padding: 10px;
+}
+
+#table tr th {
+    background-color: darkgrey;
+}
+
+#table tr:nth-child(even) {
+    background-color: lightgrey;
+}
+
+#status_message {
+    font-size: 1.5rem;
+    text-align: center;
+}
