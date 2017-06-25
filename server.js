@@ -7,7 +7,7 @@ var data = require('./public/js/quizData.js');
 
 app.use(express.static(__dirname + '/public'));
 
-io.on('connection', function(socket){
+io.on('connection', function (socket) {
     socket.emit('join-game', {
         user: data.createUser(),
         onlineCount: data.getOnlineCount(),
@@ -15,7 +15,7 @@ io.on('connection', function(socket){
     });
 });
 
-http.listen(PORT, function(){
+http.listen(PORT, function () {
     console.log('Server started...');
 });
 

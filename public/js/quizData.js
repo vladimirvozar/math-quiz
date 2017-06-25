@@ -1,7 +1,6 @@
 var UID = 0;
 var roundNum = 0;
 var round;
-
 var users = [];
 
 function User(id) {

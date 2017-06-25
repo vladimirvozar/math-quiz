@@ -28,14 +28,14 @@ function appendRound(round) {
     var cellYourAnswer = newRow.insertCell(2);
     var btnYes = document.createElement('input');
     btnYes.type = 'button';
-    btnYes.className = 'btn';
+    btnYes.className = 'btn btnYes';
     btnYes.value = 'Yes';
     btnYes.onclick = function () { };
     cellYourAnswer.appendChild(btnYes);
 
     var btnNo = document.createElement('input');
     btnNo.type = 'button';
-    btnNo.className = 'btn';
+    btnNo.className = 'btn btnNo';
     btnNo.value = 'No';
     btnNo.onclick = function () { };
     cellYourAnswer.appendChild(btnNo);

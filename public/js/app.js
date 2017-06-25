@@ -4,11 +4,11 @@ var score;
 var round;
 var onlineCount;
 
-socket.on('connect', function(){
+socket.on('connect', function () {
     console.log('Connected to socket.io server');
 });
 
-socket.on('join-game', function(data){
+socket.on('join-game', function (data) {
     id = data.user.id;
     score = data.user.score;
     onlineCount = data.onlineCount;
