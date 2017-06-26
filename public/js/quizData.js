@@ -31,6 +31,10 @@ module.exports = {
     }, 
     getUsers: function () {
         return users;
+    },
+    newRound: function () {
+        round = generateRound();
+        return round;
     }
 };
 

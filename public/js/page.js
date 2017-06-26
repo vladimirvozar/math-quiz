@@ -28,7 +28,7 @@ function updateRoundInTable(answer, result) {
     cellResult.appendChild(cellResultText);
 }
 
-function closeRoundInTable() {
+function closeRoundInTable(data) {
     var table = document.getElementById('table');
     var rowCount = table.rows.length;
     var row = table.rows[rowCount - 1];
@@ -47,6 +47,8 @@ function closeRoundInTable() {
         var cellResultText = document.createTextNode('FAILED');
         cellResult.appendChild(cellResultText);
     }
+
+    appendRound(data.newRound);
 }
 
 function appendRound(round) {

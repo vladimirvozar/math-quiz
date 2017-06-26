@@ -27,8 +27,8 @@ socket.on('wrong', function (data) {
     updateRoundInTable(data.answer, 'FAILED');
 });
 
-socket.on('closeRound', function () {
-    closeRoundInTable();
+socket.on('closeRound', function (data) {
+    closeRoundInTable(data);
 });
 
 // function sends answer as '{ userID, answer }' object when clicked on YES/NO button

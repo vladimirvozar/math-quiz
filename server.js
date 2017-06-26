@@ -30,7 +30,9 @@ io.on('connection', function (socket) {
 
             // socket.broadcast.emit  <- send to everybody, except the person who answered
             // io.emit  <- send to every single person, including sender
-            socket.broadcast.emit('closeRound');
+            io.emit('closeRound', {
+                newRound: data.newRound()
+            });
         }
         // 1. if wrong answer sent, send 'wrong' event to user that sent the answer
         else {
