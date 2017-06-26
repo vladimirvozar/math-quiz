@@ -15,4 +15,18 @@ socket.on('join-game', function (data) {
     round = data.round;
     updateStatusMessage(score, onlineCount);
     appendRound(round);
+
+    jQuery('.btnYes').on('click', function () {
+        socket.emit('answer', {
+            userId: id,
+            answer: true
+        });
+    });
+
+    jQuery('.btnNo').on('click', function () {
+        socket.emit('answer', {
+            userId: id,
+            answer: false
+        });
+    });
 });

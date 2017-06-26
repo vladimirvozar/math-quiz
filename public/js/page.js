@@ -1,3 +1,4 @@
+
 function updateStatusMessage(score, onlineCount) {
     if (onlineCount == 1) {
         jQuery('#status_message').text('Your score is ' + score + '. ' +
@@ -30,14 +31,24 @@ function appendRound(round) {
     btnYes.type = 'button';
     btnYes.className = 'btn btnYes';
     btnYes.value = 'Yes';
-    btnYes.onclick = function () { };
+    // btnYes.onclick = function () {
+    //     socket.emit('answer', {
+    //         userId: id,
+    //         answer: true
+    //     });
+    // };
     cellYourAnswer.appendChild(btnYes);
 
     var btnNo = document.createElement('input');
     btnNo.type = 'button';
     btnNo.className = 'btn btnNo';
     btnNo.value = 'No';
-    btnNo.onclick = function () { };
+    // btnNo.onclick = function () {
+    //     socket.emit('answer', {
+    //         userId: id,
+    //         answer: false
+    //     });
+    // };
     cellYourAnswer.appendChild(btnNo);
 
     // Create 'Result' (empty) cell

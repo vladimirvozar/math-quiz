@@ -15,6 +15,10 @@ io.on('connection', function (socket) {
     });
 });
 
+io.on('answer', function (data) {
+    console.log('User id: ' + data.userId + ' , answer: ' + data.answer);
+});
+
 http.listen(PORT, function () {
     console.log('Server started...');
 });
