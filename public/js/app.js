@@ -6,6 +6,8 @@ var onlineCount;
 
 socket.on('connect', function () {
     console.log('Connected to server...');
+
+    window.onbeforeunload = leaveApp;
 });
 
 socket.on('join-game', function (data) {
@@ -20,15 +22,19 @@ socket.on('join-game', function (data) {
 socket.on('correct', function (data) {
     score = data.score;
     updateStatusMessage(score, onlineCount);
-    updateRoundInTable(data.answer, 'OK');
+    updateRoundInTable(data.answer, OK);
 });
 
 socket.on('wrong', function (data) {
-    updateRoundInTable(data.answer, 'FAILED');
+    updateRoundInTable(data.answer, FAILED);
 });
 
 socket.on('closeRound', function (data) {
     closeRoundInTable(data);
+});
+
+socket.on('updateOnlineCount', function (data) {
+    updateOnlineCount(data.onlineCount);
 });
 
 // function sends answer as '{ userID, answer }' object when clicked on YES/NO button
@@ -37,17 +43,21 @@ function sendAnswer(e) {
     var event = e || window.event;
     var target = event.target || event.srcElement;
 
-    if (target.value == 'Yes') {
+    if (target.value == YES) {
         socket.emit('answer', {
             userId: id,
-            answer: 'Yes'
+            answer: YES
         });
     } else {
         socket.emit('answer', {
             userId: id,
-            answer: 'No'
+            answer: NO
         });
     }
+}
 
-
+function leaveApp () {
+    socket.emit('leave', { 
+        id: id
+    });
 }

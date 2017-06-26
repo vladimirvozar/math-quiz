@@ -28,9 +28,14 @@ module.exports = {
         if (typeof round === 'undefined')
             round = generateRound();
         return round;
-    }, 
+    },
     getUsers: function () {
         return users;
+    },
+    removeUser: function (userId) {
+        for (var i = users.length - 1; i >= 0; i--) {
+            if (users[i].id == userId) users.splice(i, 1);
+        }
     },
     newRound: function () {
         round = generateRound();

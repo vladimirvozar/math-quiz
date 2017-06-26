@@ -15,10 +15,19 @@ io.on('connection', function (socket) {
         round: data.getRound()
     });
 
+    socket.on('leave', function (obj) {
+        var users = data.removeUser(obj.id);
+        
+        // update status message on all clients
+        io.emit('updateOnlineCount', {
+            onlineCount: data.getUsers().length
+        });
+    });
+
     socket.on('answer', function (ans) {
         // 1. if correctly answered, increase users score
         // 2. send 'confirmed' event to user that sent the answer
-        // 3. send 'closeRound' to all other users
+        // 3. send 'closeRound' to all
         if (data.getRound().result == ans.answer) {
             var user = _.findWhere(data.getUsers(), { id: ans.userId });
             user.score++;

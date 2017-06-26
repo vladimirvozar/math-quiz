@@ -1,12 +1,16 @@
+const YES = 'Yes';
+const NO = 'No';
+const OK = 'OK';
+const MISSED = 'MISSED';
+const FAILED = 'FAILED';
 
 function updateStatusMessage(score, onlineCount) {
-    if (onlineCount == 1) {
-        jQuery('#status_message').text('Your score is ' + score + '. ' +
-            'You are only user currently online');
-    } else {
-        jQuery('#status_message').text('Your score is ' + score + '. ' +
-            'There are ' + onlineCount + ' users currently online');
-    }
+    jQuery('#score').text(score); 
+    jQuery('#noOfOnlineUsers').text(onlineCount);
+}
+
+function updateOnlineCount(num) {
+    jQuery('#noOfOnlineUsers').text(num);
 }
 
 function updateRoundInTable(answer, result) {
@@ -39,12 +43,12 @@ function closeRoundInTable(data) {
 
         // create new 'Your answer' cell 
         var cellAnswer = row.insertCell(2);
-        var cellAnswerText = document.createTextNode('MISSED');
+        var cellAnswerText = document.createTextNode(MISSED);
         cellAnswer.appendChild(cellAnswerText);
 
         // create 'Result' cell
         var cellResult = row.cells[3];
-        var cellResultText = document.createTextNode('FAILED');
+        var cellResultText = document.createTextNode(FAILED);
         cellResult.appendChild(cellResultText);
     }
 
@@ -72,14 +76,14 @@ function appendRound(round) {
     var btnYes = document.createElement('input');
     btnYes.type = 'button';
     btnYes.className = 'btn btnYes';
-    btnYes.value = 'Yes';
+    btnYes.value = YES;
     btnYes.onclick = sendAnswer;
     cellYourAnswer.appendChild(btnYes);
 
     var btnNo = document.createElement('input');
     btnNo.type = 'button';
     btnNo.className = 'btn btnNo';
-    btnNo.value = 'No';
+    btnNo.value = NO;
     btnNo.onclick = sendAnswer;
     cellYourAnswer.appendChild(btnNo);
 
