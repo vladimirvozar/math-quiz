@@ -9,6 +9,46 @@ function updateStatusMessage(score, onlineCount) {
     }
 }
 
+function updateRoundInTable(answer, result) {
+    var table = document.getElementById('table');
+    var rowCount = table.rows.length;
+    var row = table.rows[rowCount - 1];
+
+    // delete current 'Your Answer' cell (with Yes/No buttons)
+    row.deleteCell(2);
+
+    // create new 'Your answer' cell 
+    var cellAnswer = row.insertCell(2);
+    var cellAnswerText = document.createTextNode(answer);
+    cellAnswer.appendChild(cellAnswerText);
+
+    // create 'Result' cell
+    var cellResult = row.cells[3];
+    var cellResultText = document.createTextNode(result);
+    cellResult.appendChild(cellResultText);
+}
+
+function closeRoundInTable() {
+    var table = document.getElementById('table');
+    var rowCount = table.rows.length;
+    var row = table.rows[rowCount - 1];
+
+    if (row.cells[3].innerText === '') {
+        // delete current 'Your Answer' cell (with Yes/No buttons)
+        row.deleteCell(2);
+
+        // create new 'Your answer' cell 
+        var cellAnswer = row.insertCell(2);
+        var cellAnswerText = document.createTextNode('MISSED');
+        cellAnswer.appendChild(cellAnswerText);
+
+        // create 'Result' cell
+        var cellResult = row.cells[3];
+        var cellResultText = document.createTextNode('FAILED');
+        cellResult.appendChild(cellResultText);
+    }
+}
+
 function appendRound(round) {
 
     var table = document.getElementById('table');
@@ -31,24 +71,14 @@ function appendRound(round) {
     btnYes.type = 'button';
     btnYes.className = 'btn btnYes';
     btnYes.value = 'Yes';
-    // btnYes.onclick = function () {
-    //     socket.emit('answer', {
-    //         userId: id,
-    //         answer: true
-    //     });
-    // };
+    btnYes.onclick = sendAnswer;
     cellYourAnswer.appendChild(btnYes);
 
     var btnNo = document.createElement('input');
     btnNo.type = 'button';
     btnNo.className = 'btn btnNo';
     btnNo.value = 'No';
-    // btnNo.onclick = function () {
-    //     socket.emit('answer', {
-    //         userId: id,
-    //         answer: false
-    //     });
-    // };
+    btnNo.onclick = sendAnswer;
     cellYourAnswer.appendChild(btnNo);
 
     // Create 'Result' (empty) cell

@@ -28,11 +28,14 @@ module.exports = {
         if (typeof round === 'undefined')
             round = generateRound();
         return round;
+    }, 
+    getUsers: function () {
+        return users;
     }
 };
 
 function generateRound() {
     // generate round by some algorithm
     roundNum++;
-    return new Round(roundNum, '1+2=3', true);
+    return new Round(roundNum, '1+2=3', 'Yes');
 }

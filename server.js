@@ -4,6 +4,7 @@ var app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 var data = require('./public/js/quizData.js');
+var _ = require('underscore');
 
 app.use(express.static(__dirname + '/public'));
 
@@ -13,10 +14,31 @@ io.on('connection', function (socket) {
         onlineCount: data.getOnlineCount(),
         round: data.getRound()
     });
-});
 
-io.on('answer', function (data) {
-    console.log('User id: ' + data.userId + ' , answer: ' + data.answer);
+    socket.on('answer', function (ans) {
+        // 1. if correctly answered, increase users score
+        // 2. send 'confirmed' event to user that sent the answer
+        // 3. send 'closeRound' to all other users
+        if (data.getRound().result == ans.answer) {
+            var user = _.findWhere(data.getUsers(), { id: ans.userId });
+            user.score++;
+
+            socket.emit('correct', {
+                answer: ans.answer,
+                score: user.score
+            });
+
+            // socket.broadcast.emit  <- send to everybody, except the person who answered
+            // io.emit  <- send to every single person, including sender
+            socket.broadcast.emit('closeRound');
+        }
+        // 1. if wrong answer sent, send 'wrong' event to user that sent the answer
+        else {
+            socket.emit('wrong', {
+                answer: ans.answer
+            });
+        }
+    });
 });
 
 http.listen(PORT, function () {

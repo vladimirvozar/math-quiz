@@ -5,7 +5,7 @@ var round;
 var onlineCount;
 
 socket.on('connect', function () {
-    console.log('Connected to socket.io server');
+    console.log('Connected to server...');
 });
 
 socket.on('join-game', function (data) {
@@ -15,18 +15,39 @@ socket.on('join-game', function (data) {
     round = data.round;
     updateStatusMessage(score, onlineCount);
     appendRound(round);
-
-    jQuery('.btnYes').on('click', function () {
-        socket.emit('answer', {
-            userId: id,
-            answer: true
-        });
-    });
-
-    jQuery('.btnNo').on('click', function () {
-        socket.emit('answer', {
-            userId: id,
-            answer: false
-        });
-    });
 });
+
+socket.on('correct', function (data) {
+    score = data.score;
+    updateStatusMessage(score, onlineCount);
+    updateRoundInTable(data.answer, 'OK');
+});
+
+socket.on('wrong', function (data) {
+    updateRoundInTable(data.answer, 'FAILED');
+});
+
+socket.on('closeRound', function () {
+    closeRoundInTable();
+});
+
+// function sends answer as '{ userID, answer }' object when clicked on YES/NO button
+function sendAnswer(e) {
+    // get element that triggered event (<button>)
+    var event = e || window.event;
+    var target = event.target || event.srcElement;
+
+    if (target.value == 'Yes') {
+        socket.emit('answer', {
+            userId: id,
+            answer: 'Yes'
+        });
+    } else {
+        socket.emit('answer', {
+            userId: id,
+            answer: 'No'
+        });
+    }
+
+
+}
