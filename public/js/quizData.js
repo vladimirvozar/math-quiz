@@ -3,7 +3,7 @@ var roundNum = 0;
 var round;
 var users = [];
 var expressions = [{q: '1+2=3', a: 'Yes'},
-    {q: '3+4=12', a: 'Yes'},
+    {q: '3*4=12', a: 'Yes'},
     {q: '12/5=7', a: 'No'},
     {q: '10*7=50', a: 'No'},
     {q: '10-7=3', a: 'Yes'},
